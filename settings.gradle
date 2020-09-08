@@ -1,2 +1,3 @@
+include ':repo'
 include ':app'
 rootProject.name = "GithubAndroid"
