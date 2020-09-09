@@ -25,11 +25,11 @@ object GithubClient {
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
                 addInterceptor(loggingInterceptor)
                 addInterceptor(HeaderAcceptInterceptor())
-            }.build()
+            }
 
     var client: Retrofit = Retrofit.Builder()
         .baseUrl("https://api.github.com")
-        .client(okHttpClient)
+        .client(okHttpClient.build())
         .addConverterFactory(
             GsonConverterFactory.create(
                 GsonBuilder()
