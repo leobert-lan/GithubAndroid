@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -48,5 +49,10 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
+
+
+    api "android.arch.persistence.room:runtime:1.1.1"
+    // For Kotlin use kapt instead of annotationProcessor
+    kapt "android.arch.persistence.room:compiler:1.1.1"
 
 }

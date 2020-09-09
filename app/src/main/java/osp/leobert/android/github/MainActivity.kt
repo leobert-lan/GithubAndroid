@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.coroutineScope
 import osp.leobert.android.github.repo.GHUser
+import osp.leobert.android.github.repo.RepoDatabase
 import osp.leobert.android.github.repo.api
+import osp.leobert.android.github.repo.repo
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,8 +24,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.a).setOnClickListener {
 
 
-            api(scope,
-                request = { GHUser.user("leobert-lan").bio },
+            repo(scope,
+                request = { GHUser.user("leobert-lan") },
+                repoUpdate = {
+                    if (it != null)
+                        RepoDatabase.db?.userDao()?.insertOrUpdate(it)
+                },
+                repoRead = {
+                    RepoDatabase.db?.userDao()?.findUser("leobert-lan")
+                },
                 onStart = {
                     Log.e(
                         "lmsg",
@@ -35,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                         "lmsg",
                         "${Looper.myLooper() == Looper.getMainLooper()}"
                     )
-                    Toast.makeText(this@MainActivity, it, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, it?.bio, Toast.LENGTH_SHORT).show()
                 },
                 onFailure = {
                     Log.e(

@@ -1,6 +1,8 @@
-apply plugin: 'com.android.application'
+//apply plugin: 'com.android.application'
+apply plugin: 'osp.leobert.magnet-build'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -41,4 +43,16 @@ dependencies {
     api "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
+    implementation("osp.leobert.magnet:magnet-lib:1.0.0")
+
+}
+def projectRoot = project.getRootProject().rootDir.absolutePath
+
+MagnetBuild {
+    applicationName = 'osp.leobert.android.github.GithubApp'
+    autoRegisterSubComponent = true
+    originalManifest = projectRoot + "/app/src/main/AndroidManifest.xml"
+    runAloneManifest = projectRoot + "/app/src/main/runalone/runaloneManifest.xml"
+    targetManifest = projectRoot + "/app/src/main/runalone/mergedManifest.xml"
+    enableManifestMerge = false
 }

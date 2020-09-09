@@ -32,3 +32,39 @@ fun <T> api(
     }
 }
 
+
+fun <T> repo(
+    scope: CoroutineScope,
+    request: suspend () -> T,
+    repoRead: (suspend () -> T)?,
+    repoUpdate: (suspend (value: T) -> Unit)?,
+    onStart: (suspend () -> Unit)? = null,
+    onSuccess: (suspend (value: T) -> Unit),
+    onFailure: (suspend FlowCollector<T>.(cause: Throwable) -> Unit)?,
+    onComplete: (suspend () -> Unit)? = null
+) {
+    scope.launch {
+        flow {
+            try {
+                val bean = request.invoke()
+                emit(bean)
+            } catch (e:Exception) {
+                repoRead?.invoke()?.let { t ->
+                    this.emit(t)
+                }?:throw e
+            }
+        }
+            .onEach { repoUpdate?.invoke(it) }
+//            .catch {
+//                repoRead?.invoke()?.let { t ->
+//                    this.emit(t)
+//                }
+//            }
+            .flowOn(Dispatchers.IO)
+            .onStart { onStart?.invoke() }
+            .catch(onFailure ?: {})
+            .onCompletion { onComplete?.invoke() }
+            .flowOn(Dispatchers.Main)
+            .collect(onSuccess)
+    }
+}

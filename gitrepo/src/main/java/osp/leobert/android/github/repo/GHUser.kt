@@ -1,5 +1,8 @@
 package osp.leobert.android.github.repo
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import osp.leobert.android.github.repo.api.GithubUserApi
 import java.util.concurrent.ConcurrentHashMap
@@ -12,6 +15,7 @@ import java.util.concurrent.ConcurrentMap
  * Created by leobert on 2020/9/8.
  */
 
+@Entity(tableName = "GHUser")
 class GHUser(
 
 //    @field:SerializedName("gists_url")
@@ -36,18 +40,22 @@ class GHUser(
 //    val receivedEventsUrl: String? = null,
 //    @field:SerializedName("events_url")
 //    val eventsUrl: String? = null,
+    @field:PrimaryKey
+    @field:SerializedName("login")
+    @field:ColumnInfo(name = "login")
+    val login: String,
 
     @field:SerializedName("twitter_username")
+    @field:ColumnInfo(name = "twitter_username")
     val twitterUsername: String? = null,
 
     @field:SerializedName("bio")
+    @field:ColumnInfo(name = "bio")
     val bio: String? = null,
 
     @field:SerializedName("created_at")
     val createdAt: String? = null,
 
-    @field:SerializedName("login")
-    val login: String? = null,
 
     @field:SerializedName("type")
     val type: String? = null,
@@ -115,7 +123,7 @@ class GHUser(
 
         private val api: GithubUserApi by lazy { GithubClient.createApi<GithubUserApi>() }
 
-        suspend fun user(login: String): GHUser {
+        suspend fun user(login: String): GHUser? {
             var u = users[login]
             if (u == null) {
                 u = api.user(login)
