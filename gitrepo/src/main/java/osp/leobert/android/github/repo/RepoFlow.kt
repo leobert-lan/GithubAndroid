@@ -10,9 +10,6 @@ import kotlinx.coroutines.launch
  * <p><b>Classname:</b> RepoFlow </p>
  * Created by leobert on 2020/9/8.
  */
-//class RepoFlow {
-//}
-
 fun <T> api(
     scope: CoroutineScope,
     request: suspend () -> T,
@@ -26,10 +23,11 @@ fun <T> api(
             val bean = request.invoke()
             emit(bean)
         }
+            .flowOn(Dispatchers.IO)
             .onStart { onStart?.invoke() }
             .catch(onFailure ?: {})
             .onCompletion { onComplete?.invoke() }
-            .flowOn(Dispatchers.IO)
+            .flowOn(Dispatchers.Main)
             .collect(onSuccess)
     }
 }

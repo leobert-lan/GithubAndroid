@@ -14,14 +14,28 @@ import java.util.concurrent.ConcurrentMap
 
 class GHUser(
 
-    @field:SerializedName("gists_url")
-    val gistsUrl: String? = null,
-
-    @field:SerializedName("repos_url")
-    val reposUrl: String? = null,
-
-    @field:SerializedName("following_url")
-    val followingUrl: String? = null,
+//    @field:SerializedName("gists_url")
+//    val gistsUrl: String? = null,
+//
+//    @field:SerializedName("repos_url")
+//    val reposUrl: String? = null,
+//
+//    @field:SerializedName("following_url")
+//    val followingUrl: String? = null,
+//
+//    @field:SerializedName("starred_url")
+//    val starredUrl: String? = null,
+//
+//    @field:SerializedName("followers_url")
+//    val followersUrl: String? = null,
+//
+//    @field:SerializedName("subscriptions_url")
+//    val subscriptionsUrl: String? = null,
+//
+//    @field:SerializedName("received_events_url")
+//    val receivedEventsUrl: String? = null,
+//    @field:SerializedName("events_url")
+//    val eventsUrl: String? = null,
 
     @field:SerializedName("twitter_username")
     val twitterUsername: String? = null,
@@ -41,9 +55,6 @@ class GHUser(
     @field:SerializedName("blog")
     val blog: String? = null,
 
-    @field:SerializedName("subscriptions_url")
-    val subscriptionsUrl: String? = null,
-
     @field:SerializedName("updated_at")
     val updatedAt: String? = null,
 
@@ -53,8 +64,8 @@ class GHUser(
     @field:SerializedName("company")
     val company: String? = null,
 
-    @field:SerializedName("id")
-    val id: Int? = null,
+//    @field:SerializedName("id")
+//    val id: Int? = null,
 
     @field:SerializedName("public_repos")
     val publicRepos: Int? = null,
@@ -69,13 +80,7 @@ class GHUser(
     val organizationsUrl: String? = null,
 
     @field:SerializedName("hireable")
-    val hireable: String? = null,
-
-    @field:SerializedName("starred_url")
-    val starredUrl: String? = null,
-
-    @field:SerializedName("followers_url")
-    val followersUrl: String? = null,
+    val hireable: Boolean? = null,
 
     @field:SerializedName("public_gists")
     val publicGists: Int? = null,
@@ -83,20 +88,14 @@ class GHUser(
     @field:SerializedName("url")
     val url: String? = null,
 
-    @field:SerializedName("received_events_url")
-    val receivedEventsUrl: String? = null,
+    @field:SerializedName("html_url")
+    val htmlUrl: String? = null,
 
     @field:SerializedName("followers")
     val followers: Int? = null,
 
     @field:SerializedName("avatar_url")
     val avatarUrl: String? = null,
-
-    @field:SerializedName("events_url")
-    val eventsUrl: String? = null,
-
-    @field:SerializedName("html_url")
-    val htmlUrl: String? = null,
 
     @field:SerializedName("following")
     val following: Int? = null,

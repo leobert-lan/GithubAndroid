@@ -3,6 +3,7 @@ package osp.leobert.android.github.repo
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import osp.leobert.android.github.repo.api.HeaderAcceptInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -23,6 +24,7 @@ object GithubClient {
                 val loggingInterceptor = HttpLoggingInterceptor()
                 loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
                 addInterceptor(loggingInterceptor)
+                addInterceptor(HeaderAcceptInterceptor())
             }.build()
 
     var client: Retrofit = Retrofit.Builder()
