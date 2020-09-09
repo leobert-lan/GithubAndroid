@@ -1,16 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-        package="osp.leobert.magnetsample.foo">
+    package="osp.leobert.android.github.user">
 
-    <uses-permission android:name="android.permission.BIND_PRINT_SERVICE" />
-    <application
-            android:name="osp.leobert.magnetsample.foo.runalone.FooApplication"
-            android:theme="@style/Theme.AppCompat">
-        <activity android:name="osp.leobert.magnetsample.foo.BarActivity" />
-        <activity android:name=".FooActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+    <application>
+        <activity android:name="osp.leobert.android.github.user.login.LoginActivity"></activity>
     </application>
 </manifest>
