@@ -15,3 +15,14 @@ inline fun <reified T : IComService, R> magnetRun2(block: (t: T) -> R, default: 
     }
     return default
 }
+
+inline fun <reified R> Any?.takeIfInstance(): R? {
+    if (this is R) return this
+    return null
+}
+
+
+inline fun <reified R : CharSequence> R?.takeIfNotNullOrEmpty(): R? {
+    if (this.isNullOrEmpty()) return null
+    return this
+}
