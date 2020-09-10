@@ -12,4 +12,6 @@ import osp.leobert.magnet.com.IComService
 interface IUserComponentService : IComService {
 
     fun navigate2Login(context: Context)
+
+    fun navigate2UserHomePage(context: Context, login: String)
 }

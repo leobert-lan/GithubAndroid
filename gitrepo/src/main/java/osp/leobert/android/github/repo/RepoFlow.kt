@@ -2,6 +2,7 @@ package osp.leobert.android.github.repo
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
@@ -11,11 +12,11 @@ import kotlinx.coroutines.launch
  * Created by leobert on 2020/9/8.
  */
 fun <T> api(
-    scope: CoroutineScope,
+    scope: CoroutineScope = CoroutineScope(Dispatchers.IO + Job()),
     request: suspend () -> T,
     onStart: (suspend () -> Unit)? = null,
     onSuccess: (suspend (value: T) -> Unit),
-    onFailure: (suspend FlowCollector<T>.(cause: Throwable) -> Unit)?,
+    onFailure: (suspend FlowCollector<T>.(cause: Throwable) -> Unit)? = null,
     onComplete: (suspend () -> Unit)? = null
 ) {
     scope.launch {
@@ -48,10 +49,10 @@ fun <T> repo(
             try {
                 val bean = request.invoke()
                 emit(bean)
-            } catch (e:Exception) {
+            } catch (e: Exception) {
                 repoRead?.invoke()?.let { t ->
                     this.emit(t)
-                }?:throw e
+                } ?: throw e
             }
         }
             .onEach { repoUpdate?.invoke(it) }

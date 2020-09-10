@@ -11,6 +11,9 @@ import osp.leobert.android.github.repo.GHUser
 import osp.leobert.android.github.repo.RepoDatabase
 import osp.leobert.android.github.repo.api
 import osp.leobert.android.github.repo.repo
+import osp.leobert.android.github.service.IUserComponentService
+import osp.leobert.android.github.service.magnetRun
+import osp.leobert.magnet.Magnet
 
 class MainActivity : AppCompatActivity() {
 
@@ -61,6 +64,8 @@ class MainActivity : AppCompatActivity() {
                 })
 
         }
+
+        magnetRun<IUserComponentService> { it.navigate2UserHomePage(this,"") }
     }
 
 

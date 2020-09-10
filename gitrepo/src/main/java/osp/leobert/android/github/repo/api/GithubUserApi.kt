@@ -15,6 +15,9 @@ interface GithubUserApi {
     @GET("users/{user}")
     suspend fun user(@Path("user") user: String): GHUser
 
+    @GET("user/followers")
+    suspend fun followers():List<GHUser>
+
     /**
      * ```
      * accept 	string 	header
