@@ -2,9 +2,11 @@ package osp.leobert.android.github
 
 import android.app.Application
 import androidx.room.Room
+import net.grandcentrix.tray.AppPreferences
 import osp.leobert.android.github.repo.GithubClient
 import osp.leobert.android.github.repo.RepoDatabase
 import osp.leobert.android.github.repo.api.AuthInterceptor
+import osp.leobert.android.github.repo.db
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github </p>
@@ -23,6 +25,14 @@ class GithubApp : Application() {
             Room.databaseBuilder<RepoDatabase>(this, RepoDatabase::class.java, "repo-database")
                 .build()
 
-        //todo add tray for login save
+        db(curd = {
+            AppPreferences(this).getString("last_login", null)?.let { lastLogin ->
+                RepoDatabase.db?.tokenDao()?.findToken(lastLogin)?.token
+            }
+        }, onSuccess = {
+            this@GithubApp.token = it ?: ""
+        }, onFailure = {})
+
+
     }
 }

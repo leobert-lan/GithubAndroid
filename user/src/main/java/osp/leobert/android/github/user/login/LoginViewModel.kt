@@ -2,7 +2,7 @@ package osp.leobert.android.github.user.login
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import osp.leobert.android.github.repo.GHUser
+import osp.leobert.android.github.repo.*
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github.user.login </p>
@@ -14,10 +14,24 @@ class LoginViewModel : ViewModel(), Contract.IViewModel {
     var login: String? = null
     var token: String? = null
 
-    val currentUser:MutableLiveData<GHUser> = MutableLiveData()
+    val currentUser: MutableLiveData<GHUser> = MutableLiveData()
 
     override fun checkToken() {
+        val l = login ?: return
+        val t = token ?: return
 
+        repo(request = { GHUser.userByToken() },
+            onSuccess = {
+                db(curd = {
 
+                }, onSuccess = {}, onFailure = {})
+            }, onFailure = {
+
+            }, repoRead = { null },
+            repoUpdate = {
+                RepoDatabase.db?.tokenDao()?.saveOrUpdate(
+                    GHLogin(l, t)
+                )
+            })
     }
 }

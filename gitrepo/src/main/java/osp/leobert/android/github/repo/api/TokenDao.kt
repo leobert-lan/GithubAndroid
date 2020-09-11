@@ -1,6 +1,8 @@
 package osp.leobert.android.github.repo.api
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import osp.leobert.android.github.repo.GHLogin
 
@@ -13,4 +15,10 @@ import osp.leobert.android.github.repo.GHLogin
 interface TokenDao {
     @Query("select * from GHLogin where login = :login")
     fun findToken(login: String): GHLogin?
+
+    @Query("select * from GHLogin")
+    fun listAll(): List<GHLogin>?
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun saveOrUpdate(bean:GHLogin)
 }

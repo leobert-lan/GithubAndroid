@@ -133,6 +133,10 @@ open class GHUser(
             return u
         }
 
+        suspend fun userByToken(): GHUser? {
+            return api.authUser()
+        }
+
         suspend fun followers(): List<GHUser>? {
             return api.followers()
         }

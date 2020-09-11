@@ -3,6 +3,7 @@ package osp.leobert.android.github.repo
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import osp.leobert.android.github.repo.api.GithubUserDao
+import osp.leobert.android.github.repo.api.TokenDao
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github.repo </p>
@@ -16,4 +17,6 @@ abstract class RepoDatabase : RoomDatabase() {
     }
 
     abstract fun userDao(): GithubUserDao
+
+    abstract fun tokenDao(): TokenDao
 }

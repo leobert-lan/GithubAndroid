@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import osp.leobert.android.github.base.IBaseViewModel
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.service.magnetRun
@@ -46,7 +49,10 @@ class FollowersFragment : Fragment(), Contract.IView {
             }
         })
 
-        viewModel.fetchFollowers()
+        lifecycle.coroutineScope.launch {
+            delay(3000)
+            viewModel.fetchFollowers()
+        }
     }
 
 }
