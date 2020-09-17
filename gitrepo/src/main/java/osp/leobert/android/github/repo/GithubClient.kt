@@ -27,7 +27,9 @@ object GithubClient {
                 addInterceptor(HeaderAcceptInterceptor())
             }
 
-    var client: Retrofit = Retrofit.Builder()
+    var client: Retrofit = create()
+
+    private fun create(): Retrofit = Retrofit.Builder()
         .baseUrl("https://api.github.com")
         .client(okHttpClient.build())
         .addConverterFactory(
@@ -40,6 +42,9 @@ object GithubClient {
         )
         .build()
 
+    fun reCreate() {
+        client = create()
+    }
 
 //        httpsBuilder.addInterceptor(OverrideTimeoutInterceptor())
 

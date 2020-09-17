@@ -1,6 +1,7 @@
 package osp.leobert.android.github.service
 
 import android.content.Context
+import net.grandcentrix.tray.TrayPreferences
 import osp.leobert.magnet.com.IComService
 
 /**
@@ -11,7 +12,15 @@ import osp.leobert.magnet.com.IComService
  */
 interface IUserComponentService : IComService {
 
+    var trayPreference: TrayPreferences?
+
     fun navigate2Login(context: Context)
 
     fun navigate2UserHomePage(context: Context, login: String)
+
+    fun lastLogin():String?
+
+    fun saveLastLogin(login:String)
+
+
 }

@@ -1,5 +1,6 @@
 package osp.leobert.android.github.repo
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -78,7 +79,13 @@ fun <T> repo(
                 } ?: throw e
             }
         }
-            .onEach { repoUpdate?.invoke(it) }
+            .onEach {
+                try {
+                    repoUpdate?.invoke(it)
+                } catch (e: Exception) {
+                    Log.e("repo","repo update error",e)
+                }
+            }
             .flowOn(Dispatchers.IO)
             .onStart { onStart?.invoke() }
             .catch(onFailure ?: {})

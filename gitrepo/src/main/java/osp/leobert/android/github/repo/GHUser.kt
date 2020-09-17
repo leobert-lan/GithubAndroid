@@ -133,8 +133,9 @@ open class GHUser(
             return u
         }
 
-        suspend fun userByToken(): GHUser? {
-            return api.authUser()
+        suspend fun userByToken(token: String): GHUser? {
+            //"Authorization", "token ${provider.invoke()}"
+            return api.authUser(hashMapOf(Pair("Authorization",token)))
         }
 
         suspend fun followers(): List<GHUser>? {

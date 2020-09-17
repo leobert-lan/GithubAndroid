@@ -8,7 +8,7 @@ import okhttp3.Response
  * <p><b>Classname:</b> AuthInterceptor </p>
  * Created by leobert on 2020/9/9.
  */
-class AuthInterceptor(val provider: () -> String) : Interceptor {
+class AuthInterceptor(private val provider: () -> String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
 

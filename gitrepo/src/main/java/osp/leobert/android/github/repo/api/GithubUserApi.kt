@@ -16,7 +16,7 @@ interface GithubUserApi {
     suspend fun user(@Path("user") user: String): GHUser
 
     @GET("user")
-    suspend fun authUser(): GHUser
+    suspend fun authUser(@HeaderMap token:Map<String,String>): GHUser
 
     @GET("user/followers")
     suspend fun followers():List<GHUser>
