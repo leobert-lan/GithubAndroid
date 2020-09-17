@@ -45,6 +45,6 @@ dependencies {
     api "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
 
     api 'net.grandcentrix.tray:tray:0.12.0'
-
+    api 'osp.leobert.android:davinci:0.0.2-beta'
 
 }

@@ -7,39 +7,82 @@
         <variable
             name="vm"
             type="osp.leobert.android.github.user.login.LoginViewModel" />
+
+        <import type="osp.leobert.android.davinci.DaVinCiExpression" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingStart="50dp"
-        android:paddingEnd="50dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
         tools:context="osp.leobert.android.github.user.login.LoginActivity">
 
         <ImageView
+            android:id="@+id/login_img"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:src="@drawable/ic_launcher_round" />
 
-        <EditText
+        <FrameLayout
+            android:id="@+id/fl_user"
+            daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().solid(`#f2f2f2`).corner(`6dp`)}"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="250dp"
-            android:text="@={vm.login}" />
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/login_img"
+            android:layout_marginTop="40dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+            <!--            <tag android:id="@id/i1" android:value=""-->
 
-        <EditText
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="用户名:" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginStart="60dp"
+                android:background="@null"
+                android:text="@={vm.login}" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_token"
+            daVinCi_bg="@{DaVinCiExpression.shape().rectAngle().solid(`#f2f2f2`).corner(`6dp`)}"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="320dp"
-            android:text="@={vm.token}" />
+            android:layout_height="wrap_content"
+            android:layout_below="@id/fl_user"
+            android:layout_marginTop="20dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp">
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="TOKEN:" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="60dp"
+                android:background="@null"
+                android:minHeight="50dp"
+                android:text="@={vm.token}" />
+        </FrameLayout>
 
         <Button
-            android:onClick="@{(view)->vm.checkToken()}"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="400dp" />
+            android:layout_below="@+id/fl_token"
+            android:layout_marginTop="30dp"
+            android:onClick="@{(view)->vm.checkToken()}"
+            android:text="授权登录" />
 
     </RelativeLayout>
 </layout>
