@@ -21,33 +21,48 @@ interface GithubUserApi {
     @GET("user/followers")
     suspend fun followers():List<GHUser>
 
+    //lists the people who the authenticated user follows.
+    @GET("user/following")
+    suspend fun followings():List<GHUser>
+
+    //Check if a person is followed by the authenticated user
+    @GET("user/following/{user}")
+    suspend fun isFollowing(@Path("user") user: String):Any?
+
+    @PUT("user/following/{user}")
+    suspend fun followUser(@Path("user") user: String):Any?
+
+    @DELETE("user/following/{user}")
+    suspend fun unFollowUser(@Path("user") user: String):Any?
+
+    @GET("user/{user}/followers")
+    suspend fun followersOfUser(@Path("user") user:String):List<GHUser>
+
     /**
-     * ```
-     * accept 	string 	header
-     * Setting to application/vnd.github.v3+json is recommended
-     * username 	string 	path
-     * subject_type 	string 	query
-     *
-     * Identifies which additional information you'd like to receive about the person's hovercard.
-     * Can be organization, repository, issue, pull_request. Required when using subject_id.
-     *
-     * subject_id 	string 	query
-     *
-     * Uses the ID for the subject_type you specified. Required when using subject_type.
-     *
-     * {
-    "contexts": [
-    {
-    "message": "Owns this repository",
-    "octicon": "repo"
-    }
-    ]
-    }
-     * ```
+     * todo
+     * per_page 	integer 	query Results per page (max 100)
+    page 	integer 	query Page number of the results to fetch.
      * */
-    @GET("users/{user}/hovercard")
-    //todo response
-    suspend fun userHovercard(@Path("user") user: String): GHUser
+    @GET("user/{user}/following")
+    suspend fun followingsOfUser(@Path("user") user:String):List<GHUser>
+
+    // 暂时用不着的功能
+//    Check if a user follows another user
+//
+//    get /users/{username}/following/{target_user}
+//
+//    Parameters
+//    Name 	Type 	In 	Description
+//    accept 	string 	header
+//
+//    Setting to application/vnd.github.v3+json is recommended
+//    username 	string 	path
+//    target_user 	string 	path
+
+
+//    @GET("users/{user}/hovercard")
+//    //todo response
+//    suspend fun userHovercard(@Path("user") user: String): GHUser
 
     @PUT("user/blocks/{user}")
     suspend fun blockUser(@Path("user") user: String): Any?
