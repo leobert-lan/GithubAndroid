@@ -5,6 +5,10 @@
 
     <data>
 
+        <variable
+            name="user"
+            type="osp.leobert.android.github.repo.GHUser" />
+
     </data>
 
 
@@ -29,12 +33,44 @@
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:toolbarId="@+id/toolbar">
 
+                <LinearLayout
+                    android:id="@+id/expend_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        imageUrl="@{user.avatarUrl}"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.login+`(`+user.name+`)`}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.bio}" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{user.location}" />
+                </LinearLayout>
+
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin"
-                    app:popupTheme="@style/AppTheme.PopupOverlay" />
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:title="@null">
+
+
+                </androidx.appcompat.widget.Toolbar>
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>
@@ -47,12 +83,5 @@
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <!--        &lt;!&ndash;        just for test now&ndash;&gt;-->
-    <!--        <fragment-->
-    <!--            android:name="osp.leobert.android.github.user.followers.FollowersFragment"-->
-    <!--            android:id="@+id/fg_container"-->
-    <!--            android:layout_width="match_parent"-->
-    <!--            android:layout_height="match_parent" />-->
 
 </layout>

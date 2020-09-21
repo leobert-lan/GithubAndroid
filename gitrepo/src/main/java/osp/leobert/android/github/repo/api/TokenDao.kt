@@ -5,6 +5,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import osp.leobert.android.github.repo.GHLogin
+import osp.leobert.android.github.repo.GHUser
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github.repo.api </p>

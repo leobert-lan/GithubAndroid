@@ -2,6 +2,7 @@ package osp.leobert.android.github.repo
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import osp.leobert.android.github.repo.api.GithubUserApi
@@ -15,7 +16,14 @@ import java.util.concurrent.ConcurrentMap
  * Created by leobert on 2020/9/8.
  */
 
-@Entity(tableName = "GHUser")
+@Entity(tableName = "GHUser",
+    foreignKeys = [ForeignKey(
+        entity = GHLogin::class,
+        parentColumns = ["login"],
+        childColumns = ["login"],
+        onDelete = ForeignKey.CASCADE
+    )]
+)
 open class GHUser(
 
 //    @field:ColumnInfo(name =) @field:SerializedName("gists_url")

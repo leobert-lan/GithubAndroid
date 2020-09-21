@@ -5,8 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Observer
 import osp.leobert.android.github.base.BaseActivity
 import osp.leobert.android.github.base.adapter.BaseFragmentPagerAdapter
+import osp.leobert.android.github.service.CurrentUser
 import osp.leobert.android.github.user.R
 import osp.leobert.android.github.user.databinding.UserActivityUserHomePageBinding
 import osp.leobert.android.github.user.followers.FollowersFragment
@@ -33,15 +35,23 @@ class UserHomePageActivity : BaseActivity<UserActivityUserHomePageBinding>(), Co
 
         viewBinding?.toolbar?.let {
             setSupportActionBar(it)
+            it.setNavigationOnClickListener { onBackPressed() }
+        }
+        supportActionBar?.let {
+            it.title = ""
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
         }
         val pagers = mutableListOf<ViewPagerAdapter.Pager>()
 
-        pagers.add(ViewPagerAdapter.Pager(FollowersFragment.newInstance(),"关注"))
+        pagers.add(ViewPagerAdapter.Pager(FollowersFragment.newInstance(), "关注"))
 
         val adapter = ViewPagerAdapter(this.supportFragmentManager, pagers)
         viewBinding?.userHomeVp?.let {
             it.adapter = adapter
         }
+
+        CurrentUser.user.observe(this, Observer { viewBinding?.user = it })
     }
 
     private class ViewPagerAdapter(fm: FragmentManager, val pagers: List<Pager>) :

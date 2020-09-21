@@ -11,8 +11,11 @@ import osp.leobert.android.github.repo.GHUser
 @Dao
 interface GithubUserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertOrUpdate(user:GHUser)
+    fun insertOrUpdate(user: GHUser)
 
     @Query("SELECT * FROM GHUser where login = :login")
-    fun findUser(login:String):GHUser?
+    fun findUser(login: String): GHUser?
+
+    @Query("SELECT * from GHUser LEFT JOIN GHLogin ON GHUser.login = GHLogin.login WHERE GHLogin.token = :token")
+    fun findUserByToken(token: String): GHUser?
 }

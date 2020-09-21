@@ -10,6 +10,7 @@ import osp.leobert.android.github.repo.GithubClient
 import osp.leobert.android.github.repo.RepoDatabase
 import osp.leobert.android.github.repo.api.AuthInterceptor
 import osp.leobert.android.github.repo.db
+import osp.leobert.android.github.service.CurrentUser
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.service.magnetRun
 import osp.leobert.android.github.service.magnetRun2
@@ -21,13 +22,13 @@ import osp.leobert.android.github.service.magnetRun2
  */
 class GithubApp : Application() {
 
-    var token: String = ""
+//    var token: String = ""
 
 
     override fun onCreate() {
         super.onCreate()
-        GithubClient.okHttpClient.addInterceptor(AuthInterceptor { token })
-        GithubClient.reCreate()
+//        GithubClient.okHttpClient.addInterceptor(AuthInterceptor { token })
+//        GithubClient.reCreate()
 
         //目前注册是在onCreate的最后，所以异步处理一下
         Handler(Looper.getMainLooper()).post {
@@ -44,7 +45,7 @@ class GithubApp : Application() {
                     } ?: ""
                 }, "")
             }, onSuccess = {
-                this@GithubApp.token = it ?: ""
+                CurrentUser.loadByToken(it)
             }, onFailure = {
                 Log.e("GithubApp", "token failure", it)
             })

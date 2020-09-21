@@ -10,6 +10,10 @@ import okhttp3.Response
  */
 class AuthInterceptor(private val provider: () -> String) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
+        if (provider.invoke().isEmpty()) {
+            return chain.proceed(chain.request())
+        }
+
         val originalRequest = chain.request()
 
         return chain.proceed(

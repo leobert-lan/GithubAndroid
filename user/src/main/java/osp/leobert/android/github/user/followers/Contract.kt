@@ -2,6 +2,8 @@ package osp.leobert.android.github.user.followers
 
 import osp.leobert.android.github.base.IBaseView
 import osp.leobert.android.github.base.IBaseViewModel
+import osp.leobert.android.pandora.rv.DataSet
+import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github.user.followers </p>
@@ -16,6 +18,8 @@ class Contract {
 
     interface IViewModel : IBaseViewModel {
         var page: Int
+
+        val dataSet: PandoraWrapperRvDataSet<DataSet.Data<*, *>>
 
         fun fetchFollowers()
 

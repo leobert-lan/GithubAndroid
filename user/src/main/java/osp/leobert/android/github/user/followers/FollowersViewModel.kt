@@ -5,9 +5,10 @@ import androidx.lifecycle.ViewModel
 import osp.leobert.android.github.base.IBaseViewModel
 import osp.leobert.android.github.repo.GHUser
 import osp.leobert.android.github.repo.api
-import osp.leobert.android.github.service.IUserComponentService
-import osp.leobert.android.github.service.magnetRun
 import osp.leobert.android.github.service.takeIfInstance
+import osp.leobert.android.pandora.Pandora
+import osp.leobert.android.pandora.rv.DataSet
+import osp.leobert.android.pandora.rv.PandoraWrapperRvDataSet
 import retrofit2.HttpException
 
 class FollowersViewModel : ViewModel(), Contract.IViewModel {
@@ -16,6 +17,14 @@ class FollowersViewModel : ViewModel(), Contract.IViewModel {
         IBaseViewModel.PagerState.createLiveDataState()
 
     override var page: Int = 1
+
+    override val dataSet: PandoraWrapperRvDataSet<DataSet.Data<*, *>> =
+        PandoraWrapperRvDataSet<DataSet.Data<*,*>>(Pandora.wrapper<DataSet.Data<*,*>>())
+
+    init {
+        dataSet.addSub(Pandora.real())
+
+    }
 
     override fun fetchFollowers() {
         api(

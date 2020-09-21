@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import osp.leobert.android.github.repo.*
+import osp.leobert.android.github.service.CurrentUser
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.service.magnetRun
 
@@ -24,8 +25,10 @@ class LoginViewModel : ViewModel(), Contract.IViewModel {
         val t = token ?: return
 
         repo(request = { GHUser.userByToken("token $token") },
-            onSuccess = {
+            onSuccess = { ghUser ->
                 magnetRun<IUserComponentService> { it.saveLastLogin(l) }
+                CurrentUser.user.postValue(ghUser)
+                currentUser.postValue(ghUser)
             }, onFailure = {
                 Log.e("LoginViewModel", "err", it)
             }, repoRead = { null },

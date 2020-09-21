@@ -14,6 +14,9 @@ import osp.leobert.android.github.base.IBaseViewModel
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.service.magnetRun
 import osp.leobert.android.github.user.R
+import osp.leobert.android.github.user.widget.ListedUserItemInteract
+import osp.leobert.android.github.user.widget.ListedUserVHCreator
+import osp.leobert.android.github.user.widget.ListedUserVO2
 
 class FollowersFragment : Fragment(), Contract.IView {
 
@@ -48,6 +51,12 @@ class FollowersFragment : Fragment(), Contract.IView {
                 }
             }
         })
+
+        viewModel.dataSet.registerDVRelation(ListedUserVO2.Impl::class.java,ListedUserVHCreator(
+            itemInteract = object:ListedUserItemInteract {
+
+            }
+        ))
 
         lifecycle.coroutineScope.launch {
             delay(3000)
