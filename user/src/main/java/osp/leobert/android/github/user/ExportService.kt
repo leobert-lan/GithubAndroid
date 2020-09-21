@@ -1,7 +1,6 @@
 package osp.leobert.android.github.user
 
 import android.content.Context
-import android.util.Log
 import net.grandcentrix.tray.TrayPreferences
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.user.home.UserHomePageActivity
@@ -25,7 +24,6 @@ internal class ExportService : IUserComponentService {
     }
 
     override fun lastLogin(): String? {
-        Log.e("lmsg","${trayPreference == null}")
         return trayPreference?.getString("last_login", null)
     }
 

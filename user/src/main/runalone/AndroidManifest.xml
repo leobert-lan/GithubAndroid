@@ -1,6 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application>
-        <activity android:name="osp.leobert.android.github.user.home.UserHomePageActivity"></activity>
+        <activity
+            android:name="osp.leobert.android.github.user.home.TestActivity"
+            android:label="@string/title_activity_test"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name="osp.leobert.android.github.user.home.UserHomePageActivity" />
     </application>
+
 </manifest>
