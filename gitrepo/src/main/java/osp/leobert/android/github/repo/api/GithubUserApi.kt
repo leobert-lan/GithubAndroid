@@ -35,7 +35,7 @@ interface GithubUserApi {
     @DELETE("user/following/{user}")
     suspend fun unFollowUser(@Path("user") user: String):Any?
 
-    @GET("user/{user}/followers")
+    @GET("users/{user}/followers")
     suspend fun followersOfUser(@Path("user") user:String):List<GHUser>
 
     /**
@@ -43,7 +43,7 @@ interface GithubUserApi {
      * per_page 	integer 	query Results per page (max 100)
     page 	integer 	query Page number of the results to fetch.
      * */
-    @GET("user/{user}/following")
+    @GET("users/{user}/following")
     suspend fun followingsOfUser(@Path("user") user:String):List<GHUser>
 
     // 暂时用不着的功能

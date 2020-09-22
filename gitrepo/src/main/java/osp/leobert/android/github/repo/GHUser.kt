@@ -16,7 +16,8 @@ import java.util.concurrent.ConcurrentMap
  * Created by leobert on 2020/9/8.
  */
 
-@Entity(tableName = "GHUser",
+@Entity(
+    tableName = "GHUser",
     foreignKeys = [ForeignKey(
         entity = GHLogin::class,
         parentColumns = ["login"],
@@ -143,11 +144,15 @@ open class GHUser(
 
         suspend fun userByToken(token: String): GHUser? {
             //"Authorization", "token ${provider.invoke()}"
-            return api.authUser(hashMapOf(Pair("Authorization",token)))
+            return api.authUser(hashMapOf(Pair("Authorization", token)))
         }
 
         suspend fun followers(): List<GHUser>? {
             return api.followers()
+        }
+
+        suspend fun followersOfUser(login: String): List<GHUser>? {
+            return api.followersOfUser(login)
         }
     }
 

@@ -21,16 +21,6 @@ object CurrentUser {
     fun loadByToken(token: String) {
         this.token = token
 
-//        api(
-//            request = { GHUser.userByToken("token $token") },
-//            onSuccess = {
-//                user.postValue(it)
-//            },
-//            onFailure = {
-//                user.postValue(null)
-//            }
-//        )
-
         repo(
             request = { GHUser.userByToken("token $token") },
             repoRead = {

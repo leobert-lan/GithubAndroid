@@ -41,4 +41,27 @@ class RvAdapter<D : DataSet>(val dataSet: D, val tag: String = "not set") :
         } catch (e: Exception) {
         }
     }
+
+    override fun getItemViewType(position: Int): Int {
+        return try {
+            dataSet.getItemViewTypeV2(position)
+        } catch (e: PandoraException) {
+            Logger.e(Logger.TAG, tag, e)
+            -1
+        }
+    }
+
+    override fun onViewAttachedToWindow(holder: AbsViewHolder<DataSet.Data<*, *>>) {
+        super.onViewAttachedToWindow(holder)
+        holder.onViewAttachedToWindow()
+    }
+
+    override fun onViewDetachedFromWindow(holder: AbsViewHolder<DataSet.Data<*, *>>) {
+        super.onViewDetachedFromWindow(holder)
+        holder.onViewDetachedFromWindow()
+    }
+
+    fun onDataSetChanged() {
+        super.notifyDataSetChanged()
+    }
 }

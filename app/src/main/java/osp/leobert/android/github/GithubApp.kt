@@ -6,6 +6,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.room.Room
 import net.grandcentrix.tray.AppPreferences
+import osp.leobert.android.github.repo.GHUser
 import osp.leobert.android.github.repo.GithubClient
 import osp.leobert.android.github.repo.RepoDatabase
 import osp.leobert.android.github.repo.api.AuthInterceptor
@@ -14,6 +15,8 @@ import osp.leobert.android.github.service.CurrentUser
 import osp.leobert.android.github.service.IUserComponentService
 import osp.leobert.android.github.service.magnetRun
 import osp.leobert.android.github.service.magnetRun2
+import osp.leobert.android.pandora.Logger
+import osp.leobert.android.pandora.Pandora
 
 /**
  * <p><b>Package:</b> osp.leobert.android.github </p>
@@ -27,8 +30,7 @@ class GithubApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
-//        GithubClient.okHttpClient.addInterceptor(AuthInterceptor { token })
-//        GithubClient.reCreate()
+        Logger.DEBUG = true
 
         //目前注册是在onCreate的最后，所以异步处理一下
         Handler(Looper.getMainLooper()).post {
@@ -36,7 +38,10 @@ class GithubApp : Application() {
             RepoDatabase.db =
                 Room.databaseBuilder<RepoDatabase>(this, RepoDatabase::class.java, "repo-database")
                     .build()
-            magnetRun<IUserComponentService> { it.trayPreference = AppPreferences(this) }
+            magnetRun<IUserComponentService> {
+                it.trayPreference = AppPreferences(this)
+                CurrentUser.user.postValue(GHUser(it.lastLogin() ?: ""))
+            }
 
             db(curd = {
                 magnetRun2<IUserComponentService, String>({

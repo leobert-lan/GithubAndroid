@@ -61,9 +61,9 @@ class MainActivity : AppCompatActivity() {
                     )
                 })
 
+            magnetRun<IUserComponentService> { it.navigate2UserHomePage(this, "") }
         }
 
-        magnetRun<IUserComponentService> { it.navigate2UserHomePage(this,"") }
     }
 
 

@@ -12,16 +12,23 @@ import osp.leobert.android.pandora.rv.IReactiveViewHolder
 import androidx.databinding.Observable
 import androidx.databinding.BaseObservable
 import osp.leobert.android.github.base.recyclerview.DataBindingViewHolder
+import osp.leobert.android.github.repo.GHUser
 import osp.leobert.android.pandora.rv.IViewHolder
 
 import osp.leobert.android.pandora.rv.DataSet
 
-interface ListedUserVO2 : DataSet.Data<ListedUserVO2, AbsViewHolder<ListedUserVO2>>, ReactiveData<ListedUserVO2,AbsViewHolder<ListedUserVO2>>  {
+interface ListedUserVO2 : DataSet.Data<ListedUserVO2, AbsViewHolder<ListedUserVO2>>,
+    ReactiveData<ListedUserVO2, AbsViewHolder<ListedUserVO2>> {
+
+    val name: String
+    val avatar: String
+    val login: String
+
     override fun setToViewHolder(viewHolder: AbsViewHolder<ListedUserVO2>?) {
         viewHolder?.setData(this)
     }
 
-    class Impl : ListedUserVO2 {
+    class Impl(val user: GHUser) : ListedUserVO2 {
         private var viewHolder: IReactiveViewHolder<ListedUserVO2>? = null
 
         private val observable = BaseObservable().apply {
@@ -32,6 +39,9 @@ interface ListedUserVO2 : DataSet.Data<ListedUserVO2, AbsViewHolder<ListedUserVO
 
             })
         }
+        override val name: String = user.login
+        override val avatar: String = user.avatarUrl ?: ""
+        override val login: String = user.login
 
         override fun bindReactiveVh(viewHolder: IReactiveViewHolder<ListedUserVO2>?) {
             this.viewHolder = viewHolder
@@ -51,7 +61,8 @@ class ListedUserVHCreator(private val itemInteract: ListedUserItemInteract?) : V
             R.layout.app_vh_listed_user, parent, false
         )
 
-        val vh = object : DataBindingViewHolder<ListedUserVO2, AppVhListedUserBinding>(binding),IReactiveViewHolder<ListedUserVO2> {
+        val vh = object : DataBindingViewHolder<ListedUserVO2, AppVhListedUserBinding>(binding),
+            IReactiveViewHolder<ListedUserVO2> {
 
             var mData: ListedUserVO2? = null
 
@@ -63,11 +74,18 @@ class ListedUserVHCreator(private val itemInteract: ListedUserItemInteract?) : V
                 binding.executePendingBindings()
             }
 
-            override fun getReactiveDataIfExist(): ReactiveData<out ListedUserVO2, out IViewHolder<ListedUserVO2>>? = mData
+            override fun getReactiveDataIfExist(): ReactiveData<out ListedUserVO2, out IViewHolder<ListedUserVO2>>? =
+                mData
 
-            override fun accept(visitor: IViewHolder.Visitor) { visitor.visit(this)}
+            override fun accept(visitor: IViewHolder.Visitor) {
+                visitor.visit(this)
+            }
 
-            override fun onPropertyChanged(sender: Observable?, data: ListedUserVO2, propertyId: Int) {
+            override fun onPropertyChanged(
+                sender: Observable?,
+                data: ListedUserVO2,
+                propertyId: Int
+            ) {
             }
         }
 
@@ -77,6 +95,7 @@ class ListedUserVHCreator(private val itemInteract: ListedUserItemInteract?) : V
         return vh
     }
 }
+
 interface ListedUserItemInteract {
 }
 

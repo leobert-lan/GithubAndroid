@@ -10,7 +10,11 @@ import com.bumptech.glide.Glide
  * Created by leobert on 2020/9/21.
  */
 @BindingAdapter("imageUrl")
-fun ImageView.imageUrl(url: String) {
+fun ImageView.imageUrl(url: String?) {
+    if (url == null) {
+        this.setImageDrawable(null)
+        return
+    }
     Glide.with(this)
         .asDrawable()
         .load(url)

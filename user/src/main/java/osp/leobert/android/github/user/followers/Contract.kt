@@ -1,5 +1,6 @@
 package osp.leobert.android.github.user.followers
 
+import kotlinx.coroutines.CoroutineScope
 import osp.leobert.android.github.base.IBaseView
 import osp.leobert.android.github.base.IBaseViewModel
 import osp.leobert.android.pandora.rv.DataSet
@@ -17,7 +18,9 @@ class Contract {
     }
 
     interface IViewModel : IBaseViewModel {
+        var scope: CoroutineScope
         var page: Int
+        var login: String
 
         val dataSet: PandoraWrapperRvDataSet<DataSet.Data<*, *>>
 
